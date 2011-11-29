@@ -1,6 +1,6 @@
 require 'rubygems'
-require 'thread_pool/lib/thread_pool.rb'
-require 'redistest.rb'
+require './thread_pool/lib/thread_pool.rb'
+require './redistest.rb'
 
 r=Redis.new
 r.flushall
