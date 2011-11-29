@@ -1,23 +1,17 @@
 GIT
-  remote: git://github.com/methodmissing/thread_pool.git
-  revision: 534caf1caef01511185533f80e90b7fa8a0329b5
+  remote: git://github.com/grosser/parallel.git
+  revision: 8e3194b9a6ae01c27a126e5cf09a4748e1b23edc
   specs:
-    thread_pool (0.3.1)
+    parallel (0.5.9)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    em-synchrony (1.0.0)
-      eventmachine (>= 1.0.0.beta.1)
-    eventmachine (1.0.0.beta.4)
-    hiredis (0.4.1)
     redis (2.2.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  em-synchrony
-  hiredis
+  parallel!
   redis
-  thread_pool!
