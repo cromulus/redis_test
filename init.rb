@@ -1,5 +1,5 @@
 require 'rubygems'
-require './thread_pool/lib/thread_pool.rb'
+require 'thread_pool'
 require './redistest.rb'
 
 r=Redis.new
