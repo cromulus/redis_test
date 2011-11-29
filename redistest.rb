@@ -16,6 +16,7 @@
 require 'hiredis'
 require 'redis'
 require 'parallel'
+require 'set'
 class RedisTest
   def initialize
     @redis=Redis.new
@@ -40,9 +41,11 @@ class RedisTest
     quantity=geometric_dist(userid)
     @redis.incrby('total_fan_count',quantity)
     @redis.sadd("userids",userid)
+    fans=Set.new
     quantity.times{|q|
-      @redis.sadd("fans:#{userid}",getuuid())
+      fans<<getuuid()
     }
+    @redis.sadd("fans:#{userid}",*fans)
   end
   
   def do_intersection(uid)
