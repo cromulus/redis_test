@@ -13,8 +13,6 @@
 # 
 # y=10000000/(x-20000000)
 #  for each user in users,
-require 'rubygems'
-require 'redis'
 
 class RedisTest
   def initialize
