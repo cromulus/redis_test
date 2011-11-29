@@ -1,13 +1,11 @@
 require 'rubygems'
-require './thread_pool/lib/thread_pool'
 require './redistest.rb'
-
+require 'parallel'
 r=Redis.new
 r.flushall
-rt=RedisTest.new
-(1...100000).each{|n|
 
-    puts n
-    rt.populate_user_fans_set(n) 
-  
+count=*(1...100000)
+Parallel.map(count,:in_processes=>50){|n|
+  rt=RedisTest.new
+  rt.populate_user_fans_set(n) 
 }

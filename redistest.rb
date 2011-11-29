@@ -13,11 +13,8 @@
 # 
 # y=10000000/(x-20000000)
 #  for each user in users,
-require 'hiredis'
-require 'em-synchrony'
-require 'redis/connection/synchrony'
 require 'redis'
-
+require 'parallel'
 class RedisTest
   def initialize
     @redis=Redis.new

@@ -2,13 +2,9 @@ require 'rubygems'
 require './thread_pool/lib/thread_pool'
 require './redistest.rb'
 require 'redis'
+require 'parallel'
 r=Redis.new
-rt=RedisTest.new
-pool2 = ThreadPool.new(threads = 100)
-r.smembers("userids").each{|n|
-  pool2.execute(n) {|local| 
-    puts local
-    rt.do_intersection(local) 
-  }
+Parallel.map(r.smembers("userids"),:in_processes=>50){|n|
+  rt=RedisTest.new
+  rt.do_intersection(n) 
 }
-pool2.join
