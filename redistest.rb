@@ -41,7 +41,7 @@ class RedisTest
     quantity=geometric_dist(userid)
     @redis.incrby('total_fan_count',quantity)
     @redis.sadd("userids",userid)
-    fans=Set.new
+    fans=[]
     quantity.times{|q|
       fans<<getuuid()
     }
