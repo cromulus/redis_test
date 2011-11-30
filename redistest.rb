@@ -45,7 +45,10 @@ class RedisTest
     quantity.times{|q|
       fans<<getuuid()
     }
-    @redis.sadd("fans:#{userid}",*fans)
+    while fans.count>0
+      small_fans=fans.pop(100)
+      @redis.sadd("fans:#{userid}",*small_fans)
+    end
   end
   
   def do_intersection(uid)
