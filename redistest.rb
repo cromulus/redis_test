@@ -41,15 +41,20 @@ class RedisTest
     quantity=geometric_dist(userid)
     @redis.incrby('total_fan_count',quantity)
     @redis.sadd("userids",userid)
-    @redis.pipelined{
-      quantity.times{|q|
-        @redis.sadd("fans:#{userid}",getuuid())
-      }
+    fans=[]
+    quantity.times{|q|
+      fans<<getuuid()
     }
+
     while fans.count>0
-      small_fans=fans.pop(500000)
-      
+      small_fans=fans.pop(1000)
+      @redis.pipelined{
+        small_fans.each{|f|
+          @redis.sadd("fans:#{userid}",f)
+        }
+      }
     end
+
   end
   
   def do_intersection(uid)
