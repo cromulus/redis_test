@@ -41,13 +41,14 @@ class RedisTest
     quantity=geometric_dist(userid)
     @redis.incrby('total_fan_count',quantity)
     @redis.sadd("userids",userid)
-    fans=[]
-    quantity.times{|q|
-      fans<<getuuid()
+    @redis.pipelined{
+      quantity.times{|q|
+        @redis.sadd("fans:#{userid}",getuuid())
+      }
     }
     while fans.count>0
-      small_fans=fans.pop(100)
-      @redis.sadd("fans:#{userid}",*small_fans)
+      small_fans=fans.pop(500000)
+      
     end
   end
   
